@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        h2 {
+            color: #007bff;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        p {
+            margin-top: 20px;
+            color: #888;
+        }
+        
+        p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        p a:hover {
+            text-decoration: underline;
+        }
+        
+        .fa {
+            margin-right: 10px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            font-size: 14px;
+            display: none; /* oculta a mensagem de erro inicialmente */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fa fa-user"></i> Cadastro</h2>
+        <form method="post" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Nome de usuário" required>
+            <div class="error-message">{{ form.username.errors }}</div>
+            <input type="email" name="email" placeholder="Endereço de e-mail" required>
+            <div class="error-message">{{ form.email.errors }}</div>
+            <input type="tel" name="phone_number" id="phone_number" placeholder="+55 XX XXXXX XXXX" required>
+            <div class="error-message">{{ form.phone_number.errors }}</div>
+            <input type="password" name="password1" id="password1" placeholder="Senha" required>
+            <div class="error-message" id="password1-error" style="display: none;">A senha deve conter pelo menos 8 caracteres, não ser muito comum e não ser completamente numérica.</div>
+            <input type="password" name="password2" id="password2" placeholder="Confirme a senha" required>
+            <div class="error-message" id="password2-error" style="display: none;">As senhas não coincidem.</div>
+            <button type="submit"><i class="fa fa-user-plus"></i> Cadastrar</button>
+        </form>
+        <p>Já possui uma conta? <a href="{% url 'login' %}"><i class="fa fa-sign-in-alt"></i> Faça login aqui</a>.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('phone_number');
+            input.addEventListener('focus', function() {
+                if (!input.value.startsWith('+55')) {
+                    input.value = '+55 ';
+                }
+            });
+        });
+
+        function validateForm() {
+            var password1 = document.getElementById('password1').value;
+            var password2 = document.getElementById('password2').value;
+
+            // Verifica se as senhas coincidem
+            if (password1 !== password2) {
+                document.getElementById('password2-error').style.display = 'block';
+                return false;
+            }
+
+            // Verifica se a senha atende aos critérios necessários
+            if (!isValidPassword(password1)) {
+                document.getElementById('password1-error').style.display = 'block';
+                return false;
+            }
+
+            return true;
+        }
+
+        // Função para verificar se a senha atende aos critérios necessários
+        function isValidPassword(password) {
+            // Verifica se a senha tem pelo menos 8 caracteres
+            if (password.length < 8) {
+                return false;
+            }
+
+            // Verifica se a senha não é muito comum
+            var commonPasswords = ["123456", "password", "123456789", "12345678", "12345", "1234567", "1234567890", "senha", "123456a", "123456789a", "qwerty", "abc123", "senha123"];
+            if (commonPasswords.includes(password.toLowerCase())) {
+                return false;
+            }
+
+            // Verifica se a senha não é completamente numérica
+            if (/^\d+$/.test(password)) {
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
