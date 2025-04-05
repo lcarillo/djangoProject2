@@ -130,7 +130,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'lcarillo97@gmail.com'  # Insira seu e-mail do Gmail aqui
-EMAIL_HOST_PASSWORD = 'ecbh jpyw nzsl cyrt'  # Insira sua senha do Gmail aqui ou utilize uma senha de app
+EMAIL_HOST_PASSWORD = 'fwwk fuif hkjz mlwr'  # Insira sua senha do Gmail aqui ou utilize uma senha de app
 
 
 
