@@ -3,99 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previsão da Situação de Pobreza e Extrema Pobreza</title>
+    <title>Previsão de Pobreza Urbana - Projeto Integrador</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 0;
-            position: relative;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .navbar {
+            background-color: #007bff;
             padding: 20px;
             text-align: center;
         }
 
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
         h1 {
             color: #007bff;
+            text-align: center;
             margin-bottom: 20px;
         }
 
         p {
-            font-size: 18px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            font-size: 17px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            color: #0056b3;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-group {
+            margin-top: 30px;
+            text-align: center;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 25px;
             background-color: #007bff;
             color: #fff;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
+            margin: 10px;
+            font-size: 16px;
             transition: background-color 0.3s;
-            position: absolute;
-            top: 10px;
-            left: 10px;
         }
 
         .btn:hover {
             background-color: #0056b3;
         }
 
-        .feature {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            margin-bottom: 30px;
-        }
-
-        .feature img {
-            width: 200px;
-            margin-right: 20px;
-        }
-
-        .feature-content {
-            text-align: left;
-        }
-
-        .fa {
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
-    <a href="/password_reset/login" class="btn"><i class="fa fa-sign-in-alt"></i> Acesso ao Sistema</a>
+
+    <div class="navbar">
+        <a href="/password_reset/login"><i class="fa fa-sign-in-alt"></i> Acesso ao Sistema</a>
+        <a href="/list_users/"><i class="fa fa-users"></i> Ver Usuários</a>
+    </div>
+
     <div class="container">
-        <h1>Previsão da Situação de Pobreza e Extrema Pobreza em Áreas Urbanas</h1>
-        <p>
-            Utilizando modelos de Machine Learning, nosso projeto busca prever e compreender a situação de pobreza e extrema pobreza em áreas urbanas. Essa análise é crucial para identificar regiões com desafios socioeconômicos mais significativos e permitir uma alocação eficiente de recursos e intervenções governamentais.
-        </p>
-        <div class="feature">
-            <div class="feature-content">
-                <h2>Machine Learning</h2>
-                <p>
-                    Machine Learning é uma abordagem da inteligência artificial que permite aos sistemas aprenderem e melhorarem automaticamente a partir da experiência sem serem explicitamente programados.
-                </p>
-            </div>
-            <img src="https://via.placeholder.com/200" alt="Machine Learning" class="feature-img">
-        </div>
-        <div class="feature">
-            <div class="feature-content">
-                <h2>Pobreza Urbana</h2>
-                <p>
-                    A pobreza urbana é um fenômeno complexo que afeta milhões de pessoas em áreas urbanas ao redor do mundo. Compreender e prever sua distribuição é fundamental para políticas públicas eficazes.
-                </p>
-            </div>
-            <img src="https://via.placeholder.com/200" alt="Pobreza Urbana" class="feature-img">
+        <h1>Previsão da Situação de Pobreza e Extrema Pobreza</h1>
+
+        <p>Nosso projeto tem como objetivo enfrentar a escassez de informações precisas e atualizadas sobre a situação de pobreza e extrema pobreza em áreas urbanas. A proposta é desenvolver um sistema preditivo que auxilie gestores públicos na tomada de decisão e na alocação eficiente de recursos.</p>
+
+        <p class="section-title">Etapas do Projeto Integrador</p>
+
+        <p><strong>PI1:</strong> Desenvolvemos um framework web em Django, criando uma base tecnológica sólida para todo o sistema. Também realizamos uma revisão bibliográfica com foco em modelagem preditiva e indicadores socioeconômicos.</p>
+
+        <p><strong>PI2:</strong> Integramos um Robotic Process Automation (RPA) em Python para automatizar a coleta de dados do Cadastro Único, garantindo agilidade e precisão na atualização de informações. Análises iniciais foram conduzidas para extrair insights relevantes.</p>
+
+        <p><strong>PI3:</strong> Estamos desenvolvendo um modelo preditivo utilizando o algoritmo XGBoost, com foco em prever a situação de pobreza/extrema pobreza em municípios brasileiros com base em dados históricos.</p>
+
+        <p><strong>PI4:</strong> Faremos a integração do modelo ao sistema web, disponibilizando previsões em tempo real para usuários e instituições públicas. Também avaliaremos os resultados e o impacto do sistema na formulação de políticas sociais.</p>
+
+        <p class="section-title">Impacto Esperado</p>
+        <p>Com esta solução, esperamos apoiar políticas públicas mais eficazes, possibilitando intervenções mais rápidas e precisas em regiões que mais precisam.</p>
+
+        <div class="btn-group">
+            <a href="/list_users/" class="btn"><i class="fa fa-users"></i> Ver Usuários</a>
+            <a href="/password_reset/login" class="btn"><i class="fa fa-sign-in-alt"></i> Acesso ao Sistema</a>
         </div>
     </div>
+
 </body>
 </html>
