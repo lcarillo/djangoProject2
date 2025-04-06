@@ -79,6 +79,35 @@
             background-color: #0056b3;
         }
 
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 25px;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            text-align: center;
+            color: white;
+            line-height: 25px;
+            font-weight: bold;
+        }
+
+        .progress-100 { width: 100%; background-color: #28a745; }
+        .progress-50 { width: 50%; background-color: #ffc107; }
+        .progress-0 { width: 0%; background-color: #dc3545; }
     </style>
 </head>
 <body>
@@ -95,13 +124,37 @@
 
         <p class="section-title">Etapas do Projeto Integrador</p>
 
-        <p><strong>PI1:</strong> Desenvolvemos um framework web em Django, criando uma base tecnológica sólida para todo o sistema. Também realizamos uma revisão bibliográfica com foco em modelagem preditiva e indicadores socioeconômicos.</p>
+        <div class="progress-container">
+            <div class="progress-title">PI1 - 100% concluído</div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-100">100%</div>
+            </div>
+            <p>Este site foi feito em Python usando o Framework Django com banco de dados, cadastro de usuários e controle de versão.</p>
+        </div>
 
-        <p><strong>PI2:</strong> Integramos um Robotic Process Automation (RPA) em Python para automatizar a coleta de dados do Cadastro Único, garantindo agilidade e precisão na atualização de informações. Análises iniciais foram conduzidas para extrair insights relevantes.</p>
+        <div class="progress-container">
+            <div class="progress-title">PI2 - 100% concluído</div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-100">100%</div>
+            </div>
+            <p>É possível extrair e atualizar dados automaticamente ao logar com seu usuário no sistema, usando RPA.</p>
+        </div>
 
-        <p><strong>PI3:</strong> Estamos desenvolvendo um modelo preditivo utilizando o algoritmo XGBoost, com foco em prever a situação de pobreza/extrema pobreza em municípios brasileiros com base em dados históricos.</p>
+        <div class="progress-container">
+            <div class="progress-title">PI3 - 50% em desenvolvimento</div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-50">50%</div>
+            </div>
+            <p>Estamos desenvolvendo o modelo de previsão usando XGBoost com base em dados históricos.</p>
+        </div>
 
-        <p><strong>PI4:</strong> Faremos a integração do modelo ao sistema web, disponibilizando previsões em tempo real para usuários e instituições públicas. Também avaliaremos os resultados e o impacto do sistema na formulação de políticas sociais.</p>
+        <div class="progress-container">
+            <div class="progress-title">PI4 - Ainda não iniciado</div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-0">0%</div>
+            </div>
+            <p>A próxima etapa será a integração do modelo ao sistema web, com previsões em tempo real.</p>
+        </div>
 
         <p class="section-title">Impacto Esperado</p>
         <p>Com esta solução, esperamos apoiar políticas públicas mais eficazes, possibilitando intervenções mais rápidas e precisas em regiões que mais precisam.</p>
