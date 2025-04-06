@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil do Usuário</title>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,8 +17,8 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start;
+            min-height: 100vh;
         }
 
         .container {
@@ -21,8 +26,9 @@
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
             padding: 40px;
+            margin: 30px;
             text-align: center;
-            max-width: 420px;
+            max-width: 90%;
             width: 100%;
         }
 
@@ -36,6 +42,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         .profile-info img {
@@ -78,26 +85,155 @@
         .logout-btn:hover {
             background-color: #c82333;
         }
+
+        /* Estilo DataTables customizado */
+        table.dataTable {
+            border-collapse: collapse !important;
+            width: 100% !important;
+            border: 1px solid #ddd;
+        }
+
+        table.dataTable thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table.dataTable td, table.dataTable th {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        .dt-buttons {
+            margin-bottom: 15px;
+        }
+
+        .scroll-container {
+            overflow-x: auto;
+            margin-top: 40px;
+        }
+
+        .update-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Botões exportação */
+        .dt-button {
+            background-color: #007bff !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 6px !important;
+            padding: 8px 16px !important;
+            margin-right: 10px !important;
+            font-size: 14px !important;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dt-button:hover {
+            background-color: #0056b3 !important;
+        }
+
+        /* Campo de pesquisa */
+        .dataTables_filter input {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .dataTables_filter label {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile-info">
-            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Avatar Animal">
-            <div>
-                <h2>{{ user.username }}</h2>
-                <p>Email: {{ user.email }}</p>
-            </div>
+<div class="container">
+    <div class="profile-info">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Avatar Animal">
+        <div>
+            <h2>{{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
         </div>
+    </div>
 
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="update-btn">Ver amostra de dados do CadÚnico com RPA</button>
+    </form>
+
+    {% if tabela_html %}
+        <div class="scroll-container">
+            {{ tabela_html|safe }}
+        </div>
+    {% else %}
         <div class="placeholder-message">
             Gráficos de previsão de pobreza/extrema pobreza estarão disponíveis em breve.
         </div>
+    {% endif %}
 
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">Sair</button>
-        </form>
-    </div>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Sair</button>
+    </form>
+</div>
+
+<!-- JS do DataTables -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('table').DataTable({
+            dom: 'Bfrtip',
+            scrollX: true,
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'dados_cadunico'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'dados_cadunico',
+                    orientation: 'landscape',
+                    pageSize: 'A4',
+                    exportOptions: {
+                        columns: ':visible'
+                    },
+                    customize: function (doc) {
+                        doc.styles.tableHeader.fillColor = '#007bff';
+                        doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                    }
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json'
+            }
+        });
+    });
+</script>
 </body>
 </html>

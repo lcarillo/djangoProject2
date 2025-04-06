@@ -1,3 +1,5 @@
+
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -78,3 +80,37 @@ def login_redirect_view(request):
         return redirect('profile')  # Redireciona para a página de perfil se o usuário estiver autenticado
     else:
         return redirect('login')  # Redireciona para a página de login se o usuário não estiver autenticado
+
+
+import pandas as pd
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .rpa_cadunico import baixar_e_salvar_csv
+
+@login_required
+def profile_view(request):
+    tabela_html = None
+
+    if request.method == "POST":
+        baixar_e_salvar_csv()
+        df = pd.read_csv("cadunico_2023.csv", sep=",", encoding="latin1", skiprows=1)
+
+        # Renomear colunas para exibir no site
+        df = df.rename(columns={
+            "ibge": "Código IBGE",
+            "anomes": "Ano/Mês",
+            "cadunico_tot_fam": "Famílias Cadastradas",
+            "cadunico_tot_pes": "Pessoas Cadastradas",
+            "cadunico_tot_fam_rpc_ate_meio_sm": "Famílias até 0.5 SM",
+            "cadunico_tot_pes_rpc_ate_meio_sm": "Pessoas até 0.5 SM",
+            "cadunico_tot_fam_pob": "Famílias em Pobreza",
+            "cadunico_tot_pes_pob": "Pessoas em Pobreza",
+            "cadunico_tot_fam_ext_pob": "Famílias em Extrema Pobreza",
+            "cadunico_tot_pes_ext_pob": "Pessoas em Extrema Pobreza",
+            "cadunico_tot_fam_pob_e_ext_pob": "Famílias Pobreza + Extrema",
+            "cadunico_tot_pes_pob_e_ext_pob": "Pessoas Pobreza + Extrema"
+        })
+
+        tabela_html = df.head(50).to_html(classes="display styled-table", index=False, border=0)
+
+    return render(request, "profile.html", {"tabela_html": tabela_html})
